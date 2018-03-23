@@ -2,7 +2,7 @@ import numpy as np
 import matplotlib.pyplot as plt
 import pandas as pd #pandas package to be used for reading the csv
 
-df = pd.read_csv('Time_Pressure.csv')
+df = pd.read_csv('Time_Pressure.CSV')
 
 pressure_data = np.array
 time_data = np.array
@@ -12,6 +12,12 @@ time_data = df.V1
 
 #Saving the start time variable (it's a string) so it can be converted and used
 start_time = pressure_data[0]
+print(start_time)
+start_time_split = start_time.split(':')
+
+hour = start_time_split[0]
+minute = start_time_split[1]
+second = start_time_split[2]
 
 #Putting the columns into numpy arrays
 pressure_data = np.array(pressure_data)
@@ -38,31 +44,12 @@ stdev = 1.4826 * mad(pressure_data)
 
 pd_size = pressure_data.size
 
-#Declaring "trash" arrays to throw out values that are > 10*stdev
-#pTrash = []
-#tTrash = []
-
-#Iterates through pressure_data, and "throws away" values that are too far off
-
-#np.where (??) -- not a good option as the array created only gives the indices
-#of the values where the condition is met, meaning there would still need to be 
-#a loop in place to append those values to the pTrash and tTrash arrays in 
-#order to be deleted from the value arrays
-
-
 ind = (abs(pressure_data) > (10*stdev))
 
+#Keeping only values that are within 10 standard deviations
 masked_time = time_data[ind]
 masked_pressure = pressure_data[ind]
-
-
-#for x in range(0,pd_size):
-#    if abs(pressure_data[x]) > (10*stdev):
-#        pTrash.append(pressure_data[x])
-#        tTrash.append(time_data[x])
-#        
-#pressure_data[~np.in1d(pressure_data,pTrash).reshape(pressure_data.shape)]
-#time_data[~np.in1d(time_data,tTrash).reshape(time_data.shape)]   
+ 
 
 plt.plot(masked_time, masked_pressure, '.', ls='')
 plt.title("Pressure vs Time")
