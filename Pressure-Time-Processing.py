@@ -1,12 +1,11 @@
 import glob
-import math
 import pandas as pd
 import numpy as np
 import matplotlib.pyplot as plt
 import csv
 #Stores all file names that follow the pattern "DATA-##.CSV" in the 
 #current directory
-filenames = sorted(glob.glob('DATA-0*.CSV'))
+filenames = sorted(glob.glob('DATA-*.CSV'))
 
 #Grabbing the line before start time because the loop I have
 #set up reads the next line
